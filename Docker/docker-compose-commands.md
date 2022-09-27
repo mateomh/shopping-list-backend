@@ -10,6 +10,12 @@
 ## For creating migrations
 - sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails generate migration <migration name>
 
+## For creating rake tasks
+- sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails generate task <task namespace> <task name>
+
+## For running a rake task
+- sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails <task namespace>:<task name>
+
 ## For runnning the console
 - sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails console
 
