@@ -11,3 +11,5 @@ ADD Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 
 ADD . /app
+
+# RUN chown -R app:app /app
