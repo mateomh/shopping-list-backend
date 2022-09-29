@@ -4,6 +4,18 @@
 - If it doesn't install the new gems run
 - sudo docker-compose -f ./Docker/dev-env-compose.yml build
 
+## For creating the database
+- sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails db:create
+
+## For running migrations
+- sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails db:migrate
+
+## For seeding the database
+- sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails db:seed
+
+## For running a rake task
+- sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails <task namespace>:<task name>
+
 ## For creating models
 - sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails generate model <model name>
 
@@ -12,9 +24,6 @@
 
 ## For creating rake tasks
 - sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails generate task <task namespace> <task name>
-
-## For running a rake task
-- sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails <task namespace>:<task name>
 
 ## For runnning the console
 - sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails console
