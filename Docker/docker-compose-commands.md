@@ -10,11 +10,11 @@
 ## For running migrations
 - sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails db:migrate
 
-## For seeding the database
-- sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails db:seed
-
 ## For running a rake task
 - sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails <task namespace>:<task name>
+
+## For seeding the database
+- sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails db:seed
 
 ## For creating models
 - sudo docker-compose -f ./Docker/dev-env-compose.yml run app rails generate model <model name>
