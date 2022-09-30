@@ -1,6 +1,8 @@
 namespace :create_seed_data_store do
   desc "Creates the seed data for the Store model"
   task create_stores: :environment do
+    Store.delete_all
+    
     Store.create!([
       {
         name: 'Colsubsidio',

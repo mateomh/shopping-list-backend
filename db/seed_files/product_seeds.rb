@@ -1,5 +1,7 @@
 # SEED DATA FOR THE PRODUCT MODEL
 
+Product.delete_all
+
 Product.create!({name: "Axion Loza Limon" , quantity: "1500ml", category_id: Category.where(name: "Aseo")[0].id})
 Product.create!({name: "Protex Avena" , quantity: "3 uni", category_id: Category.where(name: "Aseo")[0].id})
 Product.create!({name: "Jabon Chiqui" , quantity: "400ml", category_id: Category.where(name: "Aseo")[0].id})
@@ -85,3 +87,5 @@ Product.create!({name: "Tomate Chonto" , quantity: "1Kg", category_id: Category.
 Product.create!({name: "Zanahoria" , quantity: "1Kg", category_id: Category.where(name: "Fruvar")[0].id})
 Product.create!({name: "Zumo de Limon" , quantity: "335ml", category_id: Category.where(name: "Fruvar")[0].id})
 Product.create!({name: "Hamburguesa Porchi" , quantity: "1010gr", category_id: Category.where(name: "Congelados")[0].id})
+
+puts "Created #{Product.count} products"

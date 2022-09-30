@@ -7,6 +7,9 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 # DIRECTLY CREATING THE SEED FOR THE CATEGORY MODEL
+
+Category.delete_all
+
 Category.create!([
   {
     name: 'Fruvar',
@@ -83,6 +86,9 @@ Category.create!([
 ])
 
 # FROM SEED FILES from the folder seed_files
-Dir[File.join(Rails.root, 'db', 'seed_files', '*.rb')].sort.each do |seed|
-  load seed
-end
+# Dir[File.join(Rails.root, 'db', 'seed_files', '*.rb')].sort.each do |seed|
+#   load seed
+# end
+
+load File.join(Rails.root, 'db', 'seed_files', 'product_seeds.rb')
+load File.join(Rails.root, 'db', 'seed_files', 'price_seeds.rb')
