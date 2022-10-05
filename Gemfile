@@ -39,14 +39,73 @@ gem "rack-cors"
 # Postgres Gem
 gem 'pg'
 
+# Kaminari
+gem 'kaminari'
+
+# PaperTrail keeps record of all the changes made to a model
+gem 'paper_trail'
+
+# Date calculations
+gem 'days360'
+gem 'timecop'
+
+# Creates valid fake data for different types
+gem 'faker'
+gem 'faker-medical'
+
+# Fabricate creates db objects quickly
+gem 'fabrication'
+
+# Authorization logic and tokens
+gem 'cancancan'
+gem 'jwt'
+
+# Excel reading
+gem 'roo'
+
+# Excel writing
+gem 'caxlsx'
+gem 'axlsx'
+gem 'caxlsx_rails'
+
+# Image processing and resizesing
+gem 'mimemagic'
+gem 'mini_magick'
+
+# PDF usage
+gem 'wicked_pdf'
+gem 'pdf-reader'
+gem 'combine_pdf'
+
+# Active Result transformation
+gem 'pluck_to_hash'
+
+# Active record extensions
+gem 'active_interaction'
+gem 'activerecord-import'
+
+# GraphQl
+gem 'graphql'
+# gem 'graphql-preload'
+gem 'graphql-query-resolver'
+gem 'apollo_upload_server'
+
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  # Debugging
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'byebug', platform: :mri
+  gem 'pry-byebug'
+  # Testing framework
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'database_cleaner'
+  # Matchers
+  gem 'shoulda-matchers'
+  gem 'db-query-matchers'
+  # Graphql interface
+  gem 'graphiql-rails'
 end
 
 group :development do
@@ -54,3 +113,11 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  # Mocking http calls
+  gem 'webmock'
+  # Cleaning data
+  gem 'database_cleaner'
+  # JSON validation
+  gem 'json_expressions'
+end

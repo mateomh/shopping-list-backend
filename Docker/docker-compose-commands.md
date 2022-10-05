@@ -31,5 +31,8 @@
 **All the commands should be executed with the container running to prevent any problem, specially with the bundle install commands**
 
 ## To run the application
-- sudo docker-compose -f ./Docker/dev-env-compose.yml up
+If you want to see  all the requests comming in
+- sudo docker-compose -f ./Docker/dev-env-compose.yml up 
 
+If you want to run the application in the background and keep it running
+- sudo docker-compose -f ./Docker/dev-env-compose.yml up -d
