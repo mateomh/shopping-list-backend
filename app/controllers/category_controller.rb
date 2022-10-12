@@ -9,18 +9,23 @@ class CategoryController < ApplicationController
   def get_single_category
     begin
       record = Category.find(get_category_id_param)
-      render json: { category: record }, status: 200
+      response = ActiveSupport::HashWithIndifferentAccess.new({
+        category: record
+      })
+      render json: response, status: 200
     rescue => e
       render json: { error: e }, status: 400
     end
   end
 
   def create_category
-    begin
-      record = Category.create!(get_category_params)
-      render json: { status: 'created', cartegory_id: record.id}, status: 201
-    rescue => e
-      render json: e, status: 400
+    ActiveRecord::Base.transaction do
+      begin
+        record = Category.create!(get_category_params)
+        render json: { status: 'created', cartegory_id: record.id}, status: 201
+      rescue => e
+        render json: e, status: 400
+      end
     end
   end
 
