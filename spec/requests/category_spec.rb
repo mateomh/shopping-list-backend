@@ -30,23 +30,81 @@ RSpec.describe "Categories", type: :request do
           }
         })
 
-        expect(Category.all.count).to eql(0)
-
-        post "/categories", params: category_hash
+        expect{
+          post "/categories", params: category_hash
+        }.to change{Category.all.count}.by(1)
         
         expect(response).not_to be_nil
         expect(response.status).to eql(201)
         expect(response.body).to include('created')
-        expect(Category.all.count).to eql(1)
-        # expect{Category}.to change{Category.all.count}.by(1)
       end
 
       it 'Should return error code when failing' do
-        post "/categories"
+        expect {
+          post "/categories"
+        }.not_to change{Category.all.count}
         
         expect(response).not_to be_nil
         expect(response.status).to eql(400)
-        expect(Category.all.count).to eql(0)
+      end
+    end
+
+    describe "PUT /categories" do
+      it 'Should update the category' do
+        record = Fabricate(:category)
+
+        put "/categories/#{record.id}", params: {
+          category: {
+            description: "This is the updated description"
+          }
+        }
+
+        expect(response).not_to be_nil
+        expect(response.status).to eql(201)
+        expect(response.body).to include('updated')
+        expect(Category.find(record.id).description).to eql('This is the updated description')
+      end
+
+      it 'Should return error when the record does not exists' do
+        put "/categories/5", params: {
+          category: {
+            description: "This is the updated description"
+          }
+        }
+
+        expect(response).not_to be_nil
+        expect(response.status).to eql(400)
+        expect(response.body).to include('error')
+      end
+
+      it 'Should return error when parameters not provided' do
+        record = Fabricate(:category)
+
+        expect{
+          put "/categories/#{record.id}"
+        }.to raise_error
+      end
+    end
+
+    describe "DELETE /categories" do
+      it 'Should delete the category' do
+        record = Fabricate(:category)
+
+        expect(Category.find(record.id)).to be
+
+        delete "/categories/#{record.id}"
+
+        expect(response).not_to be_nil
+        expect(response.status).to eql(201)
+        expect(response.body).to include('deleted')
+      end
+
+      it 'Should return error when the record does not exists' do
+        delete "/categories/5"
+
+        expect(response).not_to be_nil
+        expect(response.status).to eql(400)
+        expect(response.body).to include('error')
       end
     end
   end
