@@ -1,58 +1,62 @@
 class StoreController < ApplicationController
   def get_all_stores
-    records = Store.all
-    response = HashWithIndifferentAccess.new({
-      stores: records
-    })
-    render json: response, status: 200
+    begin
+      result = Stores::GetAllStores.run!
+
+      render json: result, status: 200
+    rescue => e
+      render json: { error: e }, status: 400
+    end
   end
 
   def get_single_store
     begin
-      record = Store.find(get_store_id_param)
-      response = ActiveSupport::HashWithIndifferentAccess.new({
-        store: record
-      })
-      render json: response, status: 200
+      result = Stores::GetStore.run!(
+        store_id: get_store_id_param
+      )
+
+      render json: result, status: 200
     rescue => e
       render json: { error: e }, status: 400
     end
   end
   
   def create_store
-    ActiveRecord::Base.transaction do
-      begin
-        record = Store.create!(get_store_params)
-        render json: { status: 'created', store_id: record.id}, status: 201
-      rescue => e
-        render json: e, status: 400
-      end
+    begin
+      result = Stores::CreateStore.run!(
+        name: get_store_params[:name],
+        location: get_store_params[:location],
+        logo_url: get_store_params[:logo_url]
+      )
+
+      render json: { status: 'created', store_id: result.id}, status: 201
+    rescue => error
+      render json: error, status: 400
     end
   end
 
   def update_store
-    ActiveRecord::Base.transaction do
-      begin
-        record = Store.find(get_store_id_param)
-        record.update!(get_store_params)
+    begin
+      result = Stores::UpdateStore.run!(
+        store_id: get_store_id_param,
+        store_information: get_store_params
+      )
 
-        render json: { status: 'updated', store_id: record.id}, status: 201
-      rescue => e
-        render json: { error: e}, status: 400
-      end
+      render json: { status: 'updated', store_id: result.id}, status: 201
+    rescue => e
+      render json: { error: e }, status: 400
     end
   end
 
   def remove_store
-    ActiveRecord::Base.transaction do
-      begin
-        record = Store.find(get_store_id_param)
-        record.delete
-
-        render json: { status: 'deleted'}, status: 201
-      rescue => e
-        render json: {error: e}, status: 400
-      end
+    begin
+      Stores::DeleteStore.run!(
+        store_id: get_store_id_param
+      )
+      
+      render json: { status: 'deleted'}, status: 201
+    rescue => e
+      render json: {error: e}, status: 400
     end
   end
 
