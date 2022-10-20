@@ -1,58 +1,64 @@
 class ProductController < ApplicationController
   def get_all_products
-    records = Product.all
-    response = HashWithIndifferentAccess.new({
-      products: records
-    })
-    render json: response, status: 200
+    begin
+      result = Products::GetAllProducts.run!
+
+      render json: result, status: 200
+    rescue => e
+      render json: { error: e }, status: 400
+    end
   end
 
   def get_single_product
     begin
-      record = Product.find(get_product_id_param)
-      response = ActiveSupport::HashWithIndifferentAccess.new({
-        product: record
-      })
-      render json: response, status: 200
+      result = Products::GetProductInfo.run!(
+        product_id: get_product_id_param
+      )
+
+      render json: result, status: 200
     rescue => e
       render json: { error: e }, status: 400
     end
   end
   
   def create_product
-    ActiveRecord::Base.transaction do
-      begin
-        record = Product.create!(get_product_params)
-        render json: { status: 'created', product_id: record.id}, status: 201
-      rescue => e
-        render json: e, status: 400
-      end
+    begin
+      result = Products::CreateProduct.run!(
+        name: get_product_params[:name],
+        description: get_product_params[:description],
+        quantity: get_product_params[:quantity],
+        image_url: get_product_params[:image_url],
+        category_id: get_product_params[:category_id]
+      )
+
+      render json: { status: 'created', product_id: result.id}, status: 201
+    rescue => e
+      render json: e, status: 400
     end
   end
 
   def update_product
-    ActiveRecord::Base.transaction do
-      begin
-        record = Product.find(get_product_id_param)
-        record.update!(get_product_params)
+    begin
+      result = Products::UpdateProduct.run!(
+        product_id: get_product_id_param,
+        product_information: get_product_params
+      )
 
-        render json: { status: 'updated', product_id: record.id}, status: 201
-      rescue => e
-        render json: { error: e}, status: 400
-      end
+      render json: { status: 'updated', product_id: result.id}, status: 201
+    rescue => e
+      render json: { error: e}, status: 400
     end
   end
 
   def remove_product
-    ActiveRecord::Base.transaction do
-      begin
-        record = Product.find(get_product_id_param)
-        record.delete
+    begin
+      Products::DeleteProduct.run!(
+        product_id: get_product_id_param
+      )
 
-        render json: { status: 'deleted'}, status: 201
-      rescue => e
-        render json: {error: e}, status: 400
-      end
+      render json: { status: 'deleted'}, status: 201
+    rescue => e
+      render json: {error: e}, status: 400
     end
   end
 
