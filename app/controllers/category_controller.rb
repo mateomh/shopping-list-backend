@@ -12,10 +12,6 @@ class CategoryController < ApplicationController
 
   def get_single_category
     begin
-      # record = Category.find(get_category_id_param)
-      # response = ActiveSupport::HashWithIndifferentAccess.new({
-      #   category: record
-      # })
       result = Categories::GetCategoryInfo.run!(
         category_id: get_category_id_param
       )
@@ -28,7 +24,6 @@ class CategoryController < ApplicationController
 
   def create_category
     begin
-      # record = Category.create!(get_category_params)
       result = Categories::CreateCategory.run!(
         name: get_category_params[:name],
         description: get_category_params[:description]
@@ -42,8 +37,6 @@ class CategoryController < ApplicationController
 
   def update_category
     begin
-      # record = Category.find(get_category_id_param)
-      # record.update!(get_category_params)
       result = Categories::UpdateCategory.run!(
         category_id: get_category_id_param,
         category_information: get_category_params
@@ -57,8 +50,6 @@ class CategoryController < ApplicationController
 
   def remove_category
     begin
-      # record = Category.find(get_category_id_param)
-      # record.delete
       Categories::DeleteCategory.run!(
         category_id: get_category_id_param
       )

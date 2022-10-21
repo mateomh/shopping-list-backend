@@ -1,58 +1,62 @@
 class PriceController < ApplicationController
   def get_all_prices
-    records = Price.all
-    response = HashWithIndifferentAccess.new({
-      prices: records
-    })
-    render json: response, status: 200
+    begin
+      result = Prices::GetAllPrices.run!
+
+      render json: result, status: 200
+    rescue => e
+      render json: { error: e }, status: 400
+    end
   end
 
   def get_single_price
     begin
-      record = Price.find(get_price_id_param)
-      response = ActiveSupport::HashWithIndifferentAccess.new({
-        price: record
-      })
-      render json: response, status: 200
+      result = Prices::GetPrice.run!(
+        price_id: get_price_id_param
+      )
+
+      render json: result, status: 200
     rescue => e
       render json: { error: e }, status: 400
     end
   end
   
   def create_price
-    ActiveRecord::Base.transaction do
-      begin
-        record = Price.create!(get_price_params)
-        render json: { status: 'created', price_id: record.id}, status: 201
-      rescue => e
-        render json: e, status: 400
-      end
+    begin
+      result = Prices::CreatePrice.run!(
+        price: get_price_params[:price],
+        store_id: get_price_params[:store_id],
+        product_id: get_price_params[:product_id]
+      )
+
+      render json: { status: 'created', price_id: result.id}, status: 201
+    rescue => e
+      render json: e, status: 400
     end
   end
 
   def update_price
-    ActiveRecord::Base.transaction do
-      begin
-        record = Price.find(get_price_id_param)
-        record.update!(get_price_params)
+    begin
+      result = Prices::UpdatePrice.run!(
+        price_id: get_price_id_param,
+        price_information: get_price_params
+      )
 
-        render json: { status: 'updated', price_id: record.id}, status: 201
-      rescue => e
-        render json: { error: e}, status: 400
-      end
+      render json: { status: 'updated', price_id: result.id}, status: 201
+    rescue => e
+      render json: { error: e}, status: 400
     end
   end
 
   def remove_price
-    ActiveRecord::Base.transaction do
-      begin
-        record = Price.find(get_price_id_param)
-        record.delete
+    begin
+      result = Prices::DeletePrice.run!(
+        price_id: get_price_id_param
+      )
 
-        render json: { status: 'deleted'}, status: 201
-      rescue => e
-        render json: {error: e}, status: 400
-      end
+      render json: { status: 'deleted'}, status: 201
+    rescue => e
+      render json: {error: e}, status: 400
     end
   end
 
