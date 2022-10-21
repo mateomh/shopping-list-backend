@@ -23,8 +23,6 @@ class Products::CreateProduct < ActiveInteraction::Base
   def execute
     ActiveRecord::Base.transaction do
       begin
-        puts "%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-        puts quantity
         Product.create!({
           name: name,
           description: description,

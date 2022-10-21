@@ -99,7 +99,7 @@ group :development, :test do
   gem 'pry-byebug'
   # Testing framework
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'capybara'
   # Matchers
   gem 'shoulda-matchers'
