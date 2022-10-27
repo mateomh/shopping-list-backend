@@ -3,11 +3,8 @@ class Categories::GetAllCategories < ActiveInteraction::Base
     ActiveRecord::Base.transaction do
       begin
         records = Category.all
-        response = HashWithIndifferentAccess.new({
-          categories: records
-        })
 
-        return response
+        return records
       rescue Exception => e
         errors.add(:base, e.to_s)
       end

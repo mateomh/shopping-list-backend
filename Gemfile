@@ -106,6 +106,8 @@ group :development, :test do
   gem 'db-query-matchers'
   # Graphql interface
   gem 'graphiql-rails'
+  # Open API documentation generator
+  gem 'rswag'
 end
 
 group :development do

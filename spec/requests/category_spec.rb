@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'json'
+require 'swagger_helper'
 
 RSpec.describe "Categories", type: :request do
   context 'CRUD Operations' do

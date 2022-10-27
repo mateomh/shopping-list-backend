@@ -31,7 +31,7 @@ class CategoryController < ApplicationController
 
       render json: { status: 'created', cartegory_id: result.id}, status: 201
     rescue => e
-      render json: e, status: 400
+      render json: { error: e }, status: 400
     end
   end
 
