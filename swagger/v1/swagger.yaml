@@ -299,7 +299,7 @@ paths:
                   status:
                     type: string
                     example: created
-                  category_id:
+                  price_id:
                     type: int
                     format: int32
                     example: 1234
@@ -413,7 +413,7 @@ paths:
                   status:
                     type: string
                     example: updated
-                  category_id:
+                  price_id:
                     type: int
                     format: int32
                     example: 1234
@@ -510,7 +510,7 @@ paths:
             schema:
               type: object
               properties:
-                price:
+                store:
                   type: object
                   properties:
                     name:
@@ -533,7 +533,7 @@ paths:
                   status:
                     type: string
                     example: created
-                  category_id:
+                  store_id:
                     type: int
                     format: int32
                     example: 1234
@@ -575,15 +575,15 @@ paths:
                       id:
                         type: integer
                         example: 1234
-                        name:
-                          type: string
-                          example: Sample store
-                        location:
-                          type: string
-                          example: Sample location of the store ST
-                        logo_url:
-                          type: string
-                          example: http://yourlogohere.com
+                      name:
+                        type: string
+                        example: Sample store
+                      location:
+                        type: string
+                        example: Sample location of the store ST
+                      logo_url:
+                        type: string
+                        example: http://yourlogohere.com
                       created_at:
                         type: string
                         format: datetime
@@ -645,7 +645,7 @@ paths:
                   status:
                     type: string
                     example: updated
-                  category_id:
+                  store_id:
                     type: int
                     format: int32
                     example: 1234
@@ -777,7 +777,7 @@ paths:
                   status:
                     type: string
                     example: created
-                  category_id:
+                  product_id:
                     type: int
                     format: int32
                     example: 1234
@@ -807,13 +807,13 @@ paths:
             minimum: 1
       responses:
         '200':
-          description: An object with the information for the specified store
+          description: An object with the information for the specified product
           content:
             application/json:
               schema: 
                 type: object
                 properties:
-                  store:
+                  product:
                     type: object
                     properties:
                       id:
@@ -872,7 +872,7 @@ paths:
             schema:
               type: object
               properties:
-                store:
+                product:
                   type: object
                   properties:
                     name:
@@ -901,7 +901,7 @@ paths:
                   status:
                     type: string
                     example: updated
-                  category_id:
+                  product_id:
                     type: int
                     format: int32
                     example: 1234
