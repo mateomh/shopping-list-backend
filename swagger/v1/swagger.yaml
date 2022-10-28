@@ -83,6 +83,7 @@ paths:
                   error:
                     type: string
                     example: This is the error generated in the API
+  
   /categories/{category_id}:
     get:
       summary: Returns the information for a specific category
@@ -223,9 +224,475 @@ paths:
                   error:
                     type: string
                     example: This is the error generated in the API
-  /prices:
+  
+  /prices/all:
     get:
+      summary: Returns the list of all the prices
+      description: Endpoint to get all the available prices
+      responses:
+        '200':
+          description: An array of JSON objects with each price
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  prices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1234
+                        price:
+                          type: number
+                          format: float
+                          example: 123.45
+                        store_id:
+                          type: integer
+                          example: 1
+                        product_id:
+                          type: integer
+                          example: 2
+                        created_at:
+                          type: string
+                          format: datetime
+                          example: '2022-10-21T01:52:44.530Z'
+                        updated_at:
+                          type: string
+                          format: datetime
+                          example: '2022-10-21T01:52:44.530Z'
 
+  /prices/create:
+    post:
+      summary: Creates a price
+      description: Endpoint to create a price
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                price:
+                  type: object
+                  properties:
+                    price:
+                      type: number
+                      format: float
+                      example: 123.45
+                    store_id:
+                      type: integer
+                      example: 1
+                    product_id:
+                      type: integer
+                      example: 2
+      responses:
+        '201':
+          description: A JSON object with the status
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: created
+                  category_id:
+                    type: int
+                    format: int32
+                    example: 1234
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+  
+  /prices/{price_id}:
+    get:
+      summary: Returns the information for a specific price
+      description: Endpoint to get information on one price
+      parameters:
+        - name: price_id
+          in: path
+          required: true
+          description: A number indicating the ID of the price
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: An object with the information for the specified price
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  price:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1234
+                      price:
+                        type: number
+                        format: float
+                        example: 123.45
+                      store_id:
+                        type: integer
+                        example: 1
+                      product_id:
+                        type: integer
+                        example: 2
+                      created_at:
+                        type: string
+                        format: datetime
+                        example: '2022-10-21T01:52:44.530Z'
+                      updated_at:
+                        type: string
+                        format: datetime
+                        example: '2022-10-21T01:52:44.530Z'
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+
+    put:
+      summary: Updates the information of an specific price
+      description: Endpoint to update the information on one price
+      parameters:
+        - name: price_id
+          in: path
+          required: true
+          description: A number indicating the ID of the price
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                price:
+                  type: object
+                  properties:
+                    price:
+                      type: number
+                      format: float
+                      example: 123.45
+                    store_id:
+                      type: integer
+                      example: 1
+                    product_id:
+                      type: integer
+                      example: 2
+      responses:
+        '201':
+          description: An JSON object with the status
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: updated
+                  category_id:
+                    type: int
+                    format: int32
+                    example: 1234
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+    delete:
+      summary: Deletes an specific price
+      description: Endpoint to delete one price
+      parameters:
+        - name: price_id
+          in: path
+          required: true
+          description: A number indicating the ID of the price
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '201':
+          description: An JSON object with the status
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: deleted
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+  
+  /stores/all:
+    get:
+      summary: Returns the list of all the stores
+      description: Endpoint to get all the available stores
+      responses:
+        '200':
+          description: An array of JSON objects with each store
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  stores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1234
+                        name:
+                          type: string
+                          example: Sample store
+                        location:
+                          type: string
+                          example: Sample location of the store ST
+                        logo_url:
+                          type: string
+                          example: http://yourlogohere.com
+                        created_at:
+                          type: string
+                          format: datetime
+                          example: '2022-10-21T01:52:44.530Z'
+                        updated_at:
+                          type: string
+                          format: datetime
+                          example: '2022-10-21T01:52:44.530Z'
+
+  /stores/create:
+    post:
+      summary: Creates a store
+      description: Endpoint to create a store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                price:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Sample store
+                    location:
+                      type: string
+                      example: Sample location of the store ST
+                    logo_url:
+                      type: string
+                      example: http://yourlogohere.com
+      responses:
+        '201':
+          description: A JSON object with the status
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: created
+                  category_id:
+                    type: int
+                    format: int32
+                    example: 1234
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+  
+  /stores/{store_id}:
+    get:
+      summary: Returns the information for a specific store
+      description: Endpoint to get information on one store
+      parameters:
+        - name: store_id
+          in: path
+          required: true
+          description: A number indicating the ID of the store
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: An object with the information for the specified store
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  store:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1234
+                        name:
+                          type: string
+                          example: Sample store
+                        location:
+                          type: string
+                          example: Sample location of the store ST
+                        logo_url:
+                          type: string
+                          example: http://yourlogohere.com
+                      created_at:
+                        type: string
+                        format: datetime
+                        example: '2022-10-21T01:52:44.530Z'
+                      updated_at:
+                        type: string
+                        format: datetime
+                        example: '2022-10-21T01:52:44.530Z'
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+
+    put:
+      summary: Updates the information of an specific store
+      description: Endpoint to update the information on one store
+      parameters:
+        - name: store_id
+          in: path
+          required: true
+          description: A number indicating the ID of the store
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Sample store
+                    location:
+                      type: string
+                      example: Sample location of the store ST
+                    logo_url:
+                      type: string
+                      example: http://yourlogohere.com
+      responses:
+        '201':
+          description: An JSON object with the status
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: updated
+                  category_id:
+                    type: int
+                    format: int32
+                    example: 1234
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+    delete:
+      summary: Deletes an specific store
+      description: Endpoint to delete one store
+      parameters:
+        - name: store_id
+          in: path
+          required: true
+          description: A number indicating the ID of the store
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '201':
+          description: An JSON object with the status
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: deleted
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+  
 # servers:
 # - url: http://localhost:3929
 #   variables:
