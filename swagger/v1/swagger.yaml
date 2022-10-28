@@ -8,6 +8,8 @@ paths:
     get:
       summary: Returns the list of all the categories
       description: Endpoint to get all the available categories
+      tags:
+        - Categories
       responses:
         '200':
           description: An array of JSON objects with each category
@@ -42,6 +44,8 @@ paths:
     post:
       summary: Creates a category
       description: Endpoint to create a category
+      tags:
+        - Categories
       requestBody:
         required: true
         content:
@@ -88,6 +92,8 @@ paths:
     get:
       summary: Returns the information for a specific category
       description: Endpoint to get information on one category
+      tags:
+        - Categories
       parameters:
         - name: category_id
           in: path
@@ -139,6 +145,8 @@ paths:
     put:
       summary: Updates the information of an specific category
       description: Endpoint to update the information on one category
+      tags:
+        - Categories
       parameters:
         - name: category_id
           in: path
@@ -194,6 +202,8 @@ paths:
     delete:
       summary: Deletes an specific category
       description: Endpoint to delete one category
+      tags:
+        - Categories
       parameters:
         - name: category_id
           in: path
@@ -229,6 +239,8 @@ paths:
     get:
       summary: Returns the list of all the prices
       description: Endpoint to get all the available prices
+      tags:
+        - Prices
       responses:
         '200':
           description: An array of JSON objects with each price
@@ -268,6 +280,8 @@ paths:
     post:
       summary: Creates a price
       description: Endpoint to create a price
+      tags:
+        - Prices
       requestBody:
         required: true
         content:
@@ -318,6 +332,8 @@ paths:
     get:
       summary: Returns the information for a specific price
       description: Endpoint to get information on one price
+      tags:
+        - Prices
       parameters:
         - name: price_id
           in: path
@@ -373,6 +389,8 @@ paths:
     put:
       summary: Updates the information of an specific price
       description: Endpoint to update the information on one price
+      tags:
+        - Prices
       parameters:
         - name: price_id
           in: path
@@ -430,6 +448,8 @@ paths:
     delete:
       summary: Deletes an specific price
       description: Endpoint to delete one price
+      tags:
+        - Prices
       parameters:
         - name: price_id
           in: path
@@ -465,6 +485,8 @@ paths:
     get:
       summary: Returns the list of all the stores
       description: Endpoint to get all the available stores
+      tags:
+        - Stores
       responses:
         '200':
           description: An array of JSON objects with each store
@@ -503,6 +525,8 @@ paths:
     post:
       summary: Creates a store
       description: Endpoint to create a store
+      tags:
+        - Stores
       requestBody:
         required: true
         content:
@@ -552,6 +576,8 @@ paths:
     get:
       summary: Returns the information for a specific store
       description: Endpoint to get information on one store
+      tags:
+        - Stores
       parameters:
         - name: store_id
           in: path
@@ -606,6 +632,8 @@ paths:
     put:
       summary: Updates the information of an specific store
       description: Endpoint to update the information on one store
+      tags:
+        - Stores
       parameters:
         - name: store_id
           in: path
@@ -662,6 +690,8 @@ paths:
     delete:
       summary: Deletes an specific store
       description: Endpoint to delete one store
+      tags:
+        - Stores
       parameters:
         - name: store_id
           in: path
@@ -697,6 +727,8 @@ paths:
     get:
       summary: Returns the list of all the products
       description: Endpoint to get all the available products
+      tags:
+        - Products
       responses:
         '200':
           description: An array of JSON objects with each product
@@ -741,6 +773,8 @@ paths:
     post:
       summary: Creates a product
       description: Endpoint to create a product
+      tags:
+        - Products
       requestBody:
         required: true
         content:
@@ -796,6 +830,8 @@ paths:
     get:
       summary: Returns the information for a specific product
       description: Endpoint to get information on one product
+      tags:
+        - Products
       parameters:
         - name: product_id
           in: path
@@ -856,6 +892,8 @@ paths:
     put:
       summary: Updates the information of an specific product
       description: Endpoint to update the information on one product
+      tags:
+        - Products
       parameters:
         - name: product_id
           in: path
@@ -918,6 +956,8 @@ paths:
     delete:
       summary: Deletes an specific product
       description: Endpoint to delete one product
+      tags:
+        - Products
       parameters:
         - name: product_id
           in: path
@@ -949,8 +989,8 @@ paths:
                     type: string
                     example: This is the error generated in the API
   
-# servers:
-# - url: http://localhost:3929
-#   variables:
-#     defaultHost:
-#       default: www.example.com
+servers:
+- url: http://localhost:3929
+  variables:
+    defaultHost:
+      default: www.example.com
