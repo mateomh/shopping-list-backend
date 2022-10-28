@@ -693,6 +693,262 @@ paths:
                     type: string
                     example: This is the error generated in the API
   
+  /products/all:
+    get:
+      summary: Returns the list of all the products
+      description: Endpoint to get all the available products
+      responses:
+        '200':
+          description: An array of JSON objects with each product
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1234
+                        name:
+                          type: string
+                          example: Sample product
+                        quantity:
+                          type: string
+                          example: 100 lt
+                        description:
+                          type: string
+                          example: This is a sample product
+                        image_url:
+                          type: string
+                          example: http://yourproductimagehere.com
+                        category_id:
+                          type: integer
+                          example: 1234
+                        created_at:
+                          type: string
+                          format: datetime
+                          example: '2022-10-21T01:52:44.530Z'
+                        updated_at:
+                          type: string
+                          format: datetime
+                          example: '2022-10-21T01:52:44.530Z'
+
+  /products/create:
+    post:
+      summary: Creates a product
+      description: Endpoint to create a product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Sample product
+                    quantity:
+                      type: string
+                      example: 100 lt
+                    description:
+                      type: string
+                      example: This is a sample product
+                    image_url:
+                      type: string
+                      example: http://yourproductimagehere.com
+                    category_id:
+                      type: integer
+                      example: 1234
+      responses:
+        '201':
+          description: A JSON object with the status
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: created
+                  category_id:
+                    type: int
+                    format: int32
+                    example: 1234
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+  
+  /products/{product_id}:
+    get:
+      summary: Returns the information for a specific product
+      description: Endpoint to get information on one product
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          description: A number indicating the ID of the product
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: An object with the information for the specified store
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  store:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1234
+                      name:
+                        type: string
+                        example: Sample product
+                      quantity:
+                        type: string
+                        example: 100 lt
+                      description:
+                        type: string
+                        example: This is a sample product
+                      image_url:
+                        type: string
+                        example: http://yourproductimagehere.com
+                      category_id:
+                        type: integer
+                        example: 1234
+                      created_at:
+                        type: string
+                        format: datetime
+                        example: '2022-10-21T01:52:44.530Z'
+                      updated_at:
+                        type: string
+                        format: datetime
+                        example: '2022-10-21T01:52:44.530Z'
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+
+    put:
+      summary: Updates the information of an specific product
+      description: Endpoint to update the information on one product
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          description: A number indicating the ID of the product
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Sample product
+                    quantity:
+                      type: string
+                      example: 100 lt
+                    description:
+                      type: string
+                      example: This is a sample product
+                    image_url:
+                      type: string
+                      example: http://yourproductimagehere.com
+                    category_id:
+                      type: integer
+                      example: 1234
+      responses:
+        '201':
+          description: An JSON object with the status
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: updated
+                  category_id:
+                    type: int
+                    format: int32
+                    example: 1234
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+    delete:
+      summary: Deletes an specific product
+      description: Endpoint to delete one product
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          description: A number indicating the ID of the product
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '201':
+          description: An JSON object with the status
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: deleted
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+  
 # servers:
 # - url: http://localhost:3929
 #   variables:
