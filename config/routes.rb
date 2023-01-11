@@ -31,6 +31,11 @@ Rails.application.routes.draw do
     delete '/:id', to: 'price#remove_price'
   end
 
+  # Calculations routes
+  scope :calculate, defaults: { format: 'json' } do
+    get '/get_stores', to: 'calculate_results#generate_store_list'
+  end
+
   # Routes through files
   def get_file_routes(name)
     instance_eval(File.read(Rails.root.join("config/routes/#{name}.rb")))
