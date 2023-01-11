@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   # Calculations routes
   scope :calculate, defaults: { format: 'json' } do
-    get '/get_stores', to: 'calculate_results#generate_store_list'
+    post '/get_stores', to: 'calculate_results#generate_store_list'
   end
 
   # Routes through files
