@@ -1,10 +1,14 @@
 class CalculateResultsController < ApplicationController
   def generate_store_list
-    CalculateResults::GenerateStoreListService.run!(
-      product_ids: get_product_ids
-    )
-    
-    render json: {"result": "ok"}, status: 202
+    begin
+      response =CalculateResults::GenerateStoreListService.run!(
+        product_ids: get_product_ids
+      )
+      
+      render json: response, status: 200
+    rescue => e
+      render json: { error: e }, status: 400
+    end
   end
 
   private
