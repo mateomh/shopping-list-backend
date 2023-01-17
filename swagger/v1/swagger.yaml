@@ -989,6 +989,172 @@ paths:
                     type: string
                     example: This is the error generated in the API
   
+  /calculate/get_stores:
+    # get:
+    #   summary: Returns the information for a specific product
+    #   description: Endpoint to get information on one product
+    #   tags:
+    #     - Products
+    #   parameters:
+    #     - name: product_id
+    #       in: path
+    #       required: true
+    #       description: A number indicating the ID of the product
+    #       schema:
+    #         type : integer
+    #         format: int64
+    #         minimum: 1
+    #   responses:
+    #     '200':
+    #       description: An object with the information for the specified product
+    #       content:
+    #         application/json:
+    #           schema: 
+    #             type: object
+    #             properties:
+    #               product:
+    #                 type: object
+    #                 properties:
+    #                   id:
+    #                     type: integer
+    #                     example: 1234
+    #                   name:
+    #                     type: string
+    #                     example: Sample product
+    #                   quantity:
+    #                     type: string
+    #                     example: 100 lt
+    #                   description:
+    #                     type: string
+    #                     example: This is a sample product
+    #                   image_url:
+    #                     type: string
+    #                     example: http://yourproductimagehere.com
+    #                   category_id:
+    #                     type: integer
+    #                     example: 1234
+    #                   created_at:
+    #                     type: string
+    #                     format: datetime
+    #                     example: '2022-10-21T01:52:44.530Z'
+    #                   updated_at:
+    #                     type: string
+    #                     format: datetime
+    #                     example: '2022-10-21T01:52:44.530Z'
+    #     '400':
+    #       description: Returns the api error
+    #       content:
+    #         application/json:
+    #           schema:
+    #             type: object
+    #             properties:
+    #               error:
+    #                 type: string
+    #                 example: This is the error generated in the API
+
+    post:
+      summary: Gets the list of products differentiated by store
+      description: Endpoint to get the products grouped by store where they have the lowest price
+      tags:
+        - Calculate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_ids:
+                  type: array
+                  example: [1,2,5,7]
+      responses:
+        '200':
+          description: An JSON object with the store information and the products discriminated by store ID
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  stores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1234
+                        name:
+                          type: string
+                          example: Sample store
+                        location:
+                          type: string
+                          example: Sample location of the store ST
+                        logo_url:
+                          type: string
+                          example: http://yourlogohere.com
+                        created_at:
+                          type: string
+                          format: datetime
+                          example: '2022-10-21T01:52:44.530Z'
+                        updated_at:
+                          type: string
+                          format: datetime
+                          example: '2022-10-21T01:52:44.530Z'
+                  result:
+                    type: object
+                    properties:
+                      store_id:
+                        type: array
+                        example: [1,2,3,4]
+                      store_id2:
+                        type: array
+                        example: [5,7]
+        '400':
+          description: Returns the api error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This is the error generated in the API
+    # delete:
+    #   summary: Deletes an specific product
+    #   description: Endpoint to delete one product
+    #   tags:
+    #     - Products
+    #   parameters:
+    #     - name: product_id
+    #       in: path
+    #       required: true
+    #       description: A number indicating the ID of the product
+    #       schema:
+    #         type : integer
+    #         format: int64
+    #         minimum: 1
+    #   responses:
+    #     '201':
+    #       description: An JSON object with the status
+    #       content:
+    #         application/json:
+    #           schema: 
+    #             type: object
+    #             properties:
+    #               status:
+    #                 type: string
+    #                 example: deleted
+    #     '400':
+    #       description: Returns the api error
+    #       content:
+    #         application/json:
+    #           schema:
+    #             type: object
+    #             properties:
+    #               error:
+    #                 type: string
+    #                 example: This is the error generated in the API
+  
 servers:
 - url: http://localhost:3929
   variables:
