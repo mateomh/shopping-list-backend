@@ -1038,15 +1038,42 @@ paths:
                           type: string
                           format: datetime
                           example: '2022-10-21T01:52:44.530Z'
-                  result:
-                    type: object
-                    properties:
-                      store_id:
-                        type: array
-                        example: [1,2,3,4]
-                      store_id2:
-                        type: array
-                        example: [5,7]
+                        associated_products:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1234
+                              name:
+                                type: string
+                                example: Sample product
+                              quantity:
+                                type: string
+                                example: 100 lt
+                              description:
+                                type: string
+                                example: This is a sample product
+                              image_url:
+                                type: string
+                                example: http://yourproductimagehere.com
+                              category_id:
+                                type: integer
+                                example: 1234
+                              created_at:
+                                type: string
+                                format: datetime
+                                example: '2022-10-21T01:52:44.530Z'
+                              updated_at:
+                                type: string
+                                format: datetime
+                                example: '2022-10-21T01:52:44.530Z'
+                              best_price:
+                                type: number
+                                format: float
+                                example: 123.45
+
         '400':
           description: Returns the api error
           content:
