@@ -10,8 +10,10 @@ class CalculateResults::GenerateStoreListService < ActiveInteraction::Base
       data = {}
       product_ids.each do |product_id|
         product = Product.find(product_id)
+        product_hash = product.as_json
         best_price = product.prices.order(price: :asc).first
-        data[best_price.store_id] = [data[best_price.store_id]].flatten.push(product_id).compact
+        product_hash[:best_price] = best_price.price
+        data[best_price.store_id] = [data[best_price.store_id]].flatten.push(product_hash).compact
       end
       
       response = CalculateResults::GenerateStoreListResponseService.run!(

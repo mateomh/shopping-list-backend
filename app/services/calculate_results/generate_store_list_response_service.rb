@@ -15,7 +15,10 @@ class CalculateResults::GenerateStoreListResponseService < ActiveInteraction::Ba
       store_ids = list_data.keys
 
       store_ids.each do |store_id|
-        response[:stores].push(Store.find(store_id))
+        store = Store.find(store_id)
+        store_hash = ActiveSupport::HashWithIndifferentAccess.new(store.as_json)
+        store_hash[:associated_products] = list_data[store_id]
+        response[:stores].push(store_hash)
       end
       
       return response
