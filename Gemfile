@@ -90,6 +90,8 @@ gem 'graphql'
 gem 'graphql-query-resolver'
 gem 'apollo_upload_server'
 
+gem 'annotate'
+
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
