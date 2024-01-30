@@ -7,11 +7,17 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    # Resolver defined in the query type file
+    field :category, Types::CategoryType, null: false do
+      description "Returns a single category"
+      argument :id, ID, required: true
     end
+
+    def category(id:)
+      Category.find(id)
+    end
+
+    # Resolvers called from files for code organization
+    field :categories, resolver: Resolvers::CategoriesResolver
   end
 end
