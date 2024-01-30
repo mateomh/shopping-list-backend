@@ -23,5 +23,9 @@ module Types
     # STORES resolvers
     field :single_store, resolver: Resolvers::SingleStoreResolver
     field :all_stores, resolver: Resolvers::AllStoresResolver
+
+    # PRICES resolvers
+    field :single_price, resolver: Resolvers::SinglePriceResolver
+    field :all_prices, resolver: Resolvers::AllPricesResolver
   end
 end
