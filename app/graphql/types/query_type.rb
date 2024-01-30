@@ -19,5 +19,9 @@ module Types
 
     # Resolvers called from files for code organization
     field :categories, resolver: Resolvers::CategoriesResolver
+
+    # STORES resolvers
+    field :single_store, resolver: Resolvers::SingleStoreResolver
+    field :all_stores, resolver: Resolvers::AllStoresResolver
   end
 end
