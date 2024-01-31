@@ -4,7 +4,7 @@ module Resolvers
     type [Types::PriceType], null: false
 
     def resolve
-      Prices::GetAllPrices.run!
+      Prices::GetAllPrices.run!["prices"]
     end
   end
 end

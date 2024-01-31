@@ -4,7 +4,7 @@ module Resolvers
     type [Types::StoreType], null: false
 
     def resolve
-      Stores::GetAllStores.run!
+      Stores::GetAllStores.run!["stores"]
     end
   end
 end

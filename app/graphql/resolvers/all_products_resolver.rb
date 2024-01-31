@@ -4,9 +4,7 @@ module Resolvers
     type [Types::ProductType], null: false
 
     def resolve
-      result = Products::GetAllProducts.run!
-      binding.pry
-      result
+      Products::GetAllProducts.run!['products']
     end
   end
 end
