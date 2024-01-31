@@ -8,5 +8,10 @@ module Types
     field :store_id, Integer
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :store, Types::StoreType, null: false
+
+    def store
+      dataloader.with(Sources::ActiveRecordObject, Store).load(object.store_id)
+    end
   end
 end

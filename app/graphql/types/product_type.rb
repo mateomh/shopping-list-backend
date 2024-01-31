@@ -10,5 +10,12 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
     field :category_id, Integer
+    # This field creates an n+1 problem
+    field :category, Types::CategoryType, null: false
+
+    def category
+      # Using the data loader to get rid of the n+1
+      dataloader.with(Sources::ActiveRecordObject, Category).load(object.category_id)
+    end
   end
 end

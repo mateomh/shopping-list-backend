@@ -8,5 +8,10 @@ module Types
     field :logo_url, String
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :prices, [Types::PriceType], null: false
+
+    def prices
+      dataloader.with(Sources::ActiveRecordObject, Price, :store_id).load(object.id)
+    end
   end
 end
